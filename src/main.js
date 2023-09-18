@@ -7,5 +7,13 @@ new Vue({
   el: "#app",
   router: routes,
   render: h => h(App),
-  store
+  store,
+  created() {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      this.$store.commit("LOGIN", token);
+      this.$router.replace("/");
+    }
+  }
 });

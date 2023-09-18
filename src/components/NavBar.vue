@@ -11,19 +11,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   computed: {
-    isAuth() {
-      return localStorage.getItem("token");
-    }
+    ...mapGetters(["isAuth"])
   },
-  watch: {
-    $route() {}
-  },
+  getters: {},
   methods: {
     logout() {
+      this.$store.commit({ type: "LOGOUT" });
       this.$router.push("/login");
-      localStorage.setItem("token", "");
     }
   }
 };

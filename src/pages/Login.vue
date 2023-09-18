@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { auth, setAuthInHeader } from "../api";
 export default {
   data() {
     return {
@@ -58,14 +57,12 @@ export default {
   methods: {
     onSubmit() {
       const { email, password } = this;
-      auth
-        .login(email, password)
-        .then(data => {
-          localStorage.setItem("token", data.accessToken);
-          setAuthInHeader(data.accessToken);
+      this.$store
+        .dispatch({ type: "LOGIN", email, password })
+        .then(res => {
           this.$router.push(this.rPath);
         })
-        .catch(err => {
+        .catch(error => {
           this.error = err.response.data.error;
         });
     }
