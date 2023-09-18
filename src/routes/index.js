@@ -4,6 +4,7 @@ import Login from "../pages/Login.vue";
 import Home from "../pages/Home.vue";
 import Board from "../pages/Board.vue";
 import NotFound from "../pages/NotFound.vue";
+import Card from "../pages/Card.vue";
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,16 @@ const routes = new VueRouter({
   routes: [
     { path: "/", component: Home },
     { path: "/login", component: Login },
-    { path: "/b/:bid", component: Board },
+    {
+      path: "/b/:bid",
+      component: Board,
+      children: [
+        {
+          path: "c/:cid",
+          component: Card
+        }
+      ]
+    },
     { path: "*", component: NotFound }
   ]
 });
