@@ -8,11 +8,17 @@ import Card from "../pages/Card.vue";
 
 Vue.use(VueRouter);
 
+const requireAuth = (to, from, next) => {
+  const isAuth = localStorage.getItem("token");
+  const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`;
+  isAuth ? next() : next(loginPath);
+};
+
 const routes = new VueRouter({
   // hash의 경우 history API가 없을 경우 route의 대한 url 규칙을 hash 로 사용한다임.
   mode: "history",
   routes: [
-    { path: "/", component: Home },
+    { path: "/", component: Home, beforeEnter: requireAuth },
     { path: "/login", component: Login },
     {
       path: "/b/:bid",
@@ -20,9 +26,11 @@ const routes = new VueRouter({
       children: [
         {
           path: "c/:cid",
-          component: Card
+          component: Card,
+          beforeEnter: requireAuth
         }
-      ]
+      ],
+      beforeEnter: requireAuth
     },
     { path: "*", component: NotFound }
   ]
