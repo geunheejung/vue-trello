@@ -29,6 +29,9 @@ const request = (method, url, data) => {
     url,
     data
   }).catch(error => {
+    if (!error.response) {
+      throw Error(error);
+    }
     const {
       response: { status, data }
     } = error;
@@ -47,6 +50,9 @@ export const setAuthInHeader = token => {
 export const board = {
   fetch() {
     return request("get", "boards").then(res => res.data.list);
+  },
+  add(title) {
+    return request("post", "boards", { title }).then(res => res.data);
   }
 };
 

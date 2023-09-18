@@ -13,39 +13,38 @@
         </router-link>
       </div>
       <div class="board-item">
-        <a class="new-board-btn" href="" @click.prevent="onClickCreateBoard">
+        <a class="new-board-btn" href="" @click.prevent="TOGGLE_ADD_MODAL">
           Create new board...
         </a>
       </div>
     </div>
-    <!-- <AddBoard v-if="isAddBoard" /> -->
+    <AddBoard @onClose="TOGGLE_ADD_MODAL" />
   </div>
 </template>
 
 <script>
-import { board } from "../api";
-// import AddBoard from "./AddBoard.vue";
+import { mapMutations, mapState } from "vuex";
+import Modal from "../components/Modal.vue";
+import AddBoard from "../components/AddBoard.vue";
 
 export default {
-  data() {
-    return {
-      boardList: []
-    };
+  components: {
+    Modal,
+    AddBoard
   },
   updated() {
     Array.from(document.querySelectorAll(".board-item")).forEach(el => {
       el.style.backgroundColor = el.dataset.bgcolor || "#ddd";
     });
   },
-  // components: { AddBoard },
+  computed: {
+    ...mapState(["boardList", "isAddModal"])
+  },
   created() {
-    board.fetch().then(res => {
-      debugger;
-      this.boardList = res;
-    });
+    this.$store.dispatch({ type: "FETCH_BOARD" });
   },
   methods: {
-    onClickCreateBoard() {}
+    ...mapMutations(["TOGGLE_ADD_MODAL"])
   }
 };
 </script>
