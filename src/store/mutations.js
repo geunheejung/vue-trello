@@ -5,7 +5,7 @@ export default {
     state.isAddModal = !state.isAddModal;
   },
   SET_BOARD_ITEM(state, item) {
-    state.boardList.push(item);
+    state.boardItem = item;
   },
   SET_BOARD(state, boardList) {
     state.boardList = boardList;

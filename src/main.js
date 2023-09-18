@@ -13,7 +13,7 @@ new Vue({
 
     if (token) {
       this.$store.commit("LOGIN", token);
-      this.$router.replace("/");
+      // this.$router.replace("/");
     }
   }
 });

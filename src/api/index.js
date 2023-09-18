@@ -48,8 +48,9 @@ export const setAuthInHeader = token => {
 };
 
 export const board = {
-  fetch() {
-    return request("get", "boards").then(res => res.data.list);
+  fetch(id) {
+    const path = "boards";
+    return request("get", id ? `${path}/${id}` : path).then(res => res.data);
   },
   add(title) {
     return request("post", "boards", { title }).then(res => res.data);

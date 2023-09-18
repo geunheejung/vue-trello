@@ -63,7 +63,11 @@ export default {
   },
   methods: {
     onSubmitCreateBoard() {
-      this.$store.dispatch({ type: "ADD_BOARD", title: this.inputBoardTitle });
+      this.$store
+        .dispatch({ type: "ADD_BOARD", title: this.inputBoardTitle })
+        .then(({ id }) => {
+          this.$router.push(`/b/${id}`);
+        });
     }
   }
 };
