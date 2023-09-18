@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       loading: true,
-      apiRes: {}
+      boards: []
     };
   },
   created() {
@@ -25,13 +25,12 @@ export default {
     fetchData() {
       this.loading = true;
       axios
-        .get(`http://localhost:3000/health`)
+        .get(`http://localhost:3000/boards`)
         .then(res => {
-          this.apiRes = {
-            status: res.status,
-            statusText: res.statusText,
-            response: res.data
-          };
+          this.boards = res.data;
+        })
+        .catch(err => {
+          this.$router.replace("/login");
         })
         .finally(() => {
           this.loading = false;
