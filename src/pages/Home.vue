@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -22,20 +23,19 @@ export default {
   },
   methods: {
     fetchData() {
-      const req = new XMLHttpRequest();
-
-      req.open("GET", "http://localhost:3000/health");
-
-      req.send();
-
-      req.addEventListener("load", () => {
-        this.loading = true;
-        this.apiRes = {
-          status: req.status,
-          statusText: req.statusText,
-          response: JSON.parse(req.response)
-        };
-      });
+      this.loading = true;
+      axios
+        .get(`http://localhost:3000/health`)
+        .then(res => {
+          this.apiRes = {
+            status: res.status,
+            statusText: res.statusText,
+            response: res.data
+          };
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   }
 };
