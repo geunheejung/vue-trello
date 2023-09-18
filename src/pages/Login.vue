@@ -61,7 +61,6 @@ export default {
       auth
         .login(email, password)
         .then(data => {
-          debugger;
           localStorage.setItem("token", data.accessToken);
           setAuthInHeader(data.accessToken);
           this.$router.push(this.rPath);
