@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      bid: 0,
+      cid: 0,
       loading: true
     };
   },

@@ -46,7 +46,7 @@ export const setAuthInHeader = token => {
 
 export const board = {
   fetch() {
-    return request("get", "boards");
+    return request("get", "boards").then(res => res.data.list);
   }
 };
 

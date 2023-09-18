@@ -18,9 +18,7 @@ export default {
     }
   },
   watch: {
-    $route() {
-      console.log(1);
-    }
+    $route() {}
   },
   methods: {
     logout() {
