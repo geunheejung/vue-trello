@@ -1,11 +1,15 @@
 <template>
   <div>
     Board
-    <ul>
-      <li v-for="item in [1, 2, 3]" :key="item">
-        <router-link :to="`/b/${bid}/c/${item}`">Board {{ item }}</router-link>
-      </li>
-    </ul>
+    <div v-if="loading">loading...</div>
+    <div v-else>
+      {{ bid }}
+      <ul>
+        <li v-for="item in [1, 2, 3]" :key="item">
+          <router-link :to="`/b/${bid}/c/${item}`">Card {{ item }}</router-link>
+        </li>
+      </ul>
+    </div>
     <router-view></router-view>
   </div>
 </template>
@@ -14,16 +18,24 @@
 export default {
   data() {
     return {
-      bid: 0
+      bid: 0,
+      loading: true
     };
   },
   watch: {
-    $route() {
-      this.bid = this.$route.params.bid;
+    $route: {
+      handler: "fetchData",
+      immediate: true
     }
   },
-  created() {
-    this.bid = this.$route.params.bid;
+  methods: {
+    fetchData() {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+        this.cid = this.$route.params.bid;
+      }, 500);
+    }
   }
 };
 </script>
