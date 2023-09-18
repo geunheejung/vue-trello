@@ -27,5 +27,4 @@ const routes = new VueRouter({
     { path: "*", component: NotFound }
   ]
 });
-
 export default routes;
